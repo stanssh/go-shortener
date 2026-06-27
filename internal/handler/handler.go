@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func Root(w http.ResponseWriter, r *http.Request) {
+func Store(w http.ResponseWriter, r *http.Request) {
 
 	if r.Header.Get("Content-Type") != "text/plain" {
 		w.Header().Add("Content-Type", "text/plain")

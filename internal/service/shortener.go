@@ -4,19 +4,26 @@ import (
 	"crypto/rand"
 	"strings"
 
-	"github.com/stanssh/go-shortener/internal/repository"
+	"github.com/stanssh/go-shortener/internal/storage"
 )
 
 type Service struct {
-	Storage repository.InMEM
+	Storage *storage.InMEM
+}
+
+func New() *Service {
+	return &Service{
+		Storage: storage.NewMem(),
+	}
 }
 
 func (svc *Service) StoreURL(s string) (string, error) {
+	myHash := GenerateString(s)
 	svc.Storage.Put(
 		s,
-		GenerateString(s),
+		myHash,
 	)
-	return "", nil
+	return myHash, nil
 }
 
 func (svc *Service) RetrieveURL(s string) (string, error) {

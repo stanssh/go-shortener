@@ -11,11 +11,12 @@ type Router struct {
 }
 
 func New() *Router {
-	return &Router{}
+	return &Router{
+		Mux: http.NewServeMux(),
+	}
 }
 
-func (r *Router) Run() {
-	r.Mux = http.NewServeMux()
-	r.Mux.HandleFunc("POST /", handler.Root)
-
+func (r *Router) Run() error {
+	r.Mux.HandleFunc("POST /", handler.Store)
+	return http.ListenAndServe(":8080", r.Mux)
 }

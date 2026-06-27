@@ -1,4 +1,4 @@
-package repository
+package storage
 
 import (
 	"fmt"
@@ -8,6 +8,12 @@ import (
 type InMEM struct {
 	mu   sync.Mutex
 	data map[string]string
+}
+
+func NewMem() *InMEM {
+	return &InMEM{
+		data: make(map[string]string),
+	}
 }
 
 func (i *InMEM) Put(orig, short string) error {

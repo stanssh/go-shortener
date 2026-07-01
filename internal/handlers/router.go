@@ -15,6 +15,7 @@ func NewRouter() *Router {
 }
 
 func (r *Router) Run() error {
-	r.Mux.HandleFunc("POST /", Store)
+	r.Mux.HandleFunc("POST /", Save)
+	r.Mux.HandleFunc("GET /{id}", Get)
 	return http.ListenAndServe(":8080", r.Mux)
 }

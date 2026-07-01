@@ -20,10 +20,11 @@ type Service struct {
 var svc *Service
 
 func SetStorage(s *storage.InMEM) {
-	svc.Storage = s
+	svc = &Service{Storage: s}
+	// svc.Storage = s
 }
 
-func (svc *Service) StoreURL(s string) (string, error) {
+func StoreURL(s string) (string, error) {
 	myHash := GenerateString(s)
 	svc.Storage.Put(
 		s,
@@ -32,7 +33,7 @@ func (svc *Service) StoreURL(s string) (string, error) {
 	return myHash, nil
 }
 
-func (svc *Service) RetrieveURL(s string) (string, error) {
+func RetrieveURL(s string) (string, error) {
 	return svc.Storage.Get(s)
 }
 

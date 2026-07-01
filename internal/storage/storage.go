@@ -10,10 +10,13 @@ type InMEM struct {
 	data map[string]string
 }
 
+var i InMEM
+
 func NewMem() *InMEM {
-	return &InMEM{
+	var i = &InMEM{
 		data: make(map[string]string),
 	}
+	return i
 }
 
 func (i *InMEM) Put(orig, short string) error {

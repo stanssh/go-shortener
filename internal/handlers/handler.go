@@ -14,6 +14,16 @@ import (
 
 // var srv Server
 
+func getScheme(r *http.Request) string {
+	if r.TLS != nil {
+		return "https"
+	}
+	if h := r.Header.Get("X-Forwarded-proto"); h != "" {
+		return h
+	}
+	return "http"
+}
+
 func Save(w http.ResponseWriter, r *http.Request) {
 
 	if r.Header.Get("Content-Type") != "text/plain" {
@@ -32,7 +42,7 @@ func Save(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusCreated)
-	fmt.Fprintf(w, "%s://%s/%s", r.Proto, r.Host, hash)
+	fmt.Fprintf(w, "%s://%s/%s", getScheme(r), r.Host, hash)
 }
 
 func Get(w http.ResponseWriter, r *http.Request) {

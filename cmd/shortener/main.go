@@ -10,7 +10,7 @@ func main() {
 
 	log.Print("Starting app..")
 
-	app := app.New()
+	// app := app.New()
 
 	log.Fatal(app.Run())
 

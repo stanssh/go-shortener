@@ -1,10 +1,16 @@
-package handler
+package handlers
 
 import (
 	"fmt"
 	"io"
 	"net/http"
 )
+
+// type Server struct {
+// 	srv service.Service
+// }
+
+// var srv Server
 
 func Store(w http.ResponseWriter, r *http.Request) {
 

@@ -11,10 +11,16 @@ type Service struct {
 	Storage *storage.InMEM
 }
 
-func New() *Service {
-	return &Service{
-		Storage: storage.NewMem(),
-	}
+// func NewInMem() *Service {
+// 	return &Service{
+// 		Storage: storage.NewMem(),
+// 	}
+// }
+
+var svc *Service
+
+func SetStorage(s *storage.InMEM) {
+	svc.Storage = s
 }
 
 func (svc *Service) StoreURL(s string) (string, error) {

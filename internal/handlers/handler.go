@@ -47,11 +47,11 @@ func Save(w http.ResponseWriter, r *http.Request) {
 
 func Get(w http.ResponseWriter, r *http.Request) {
 
-	if r.Header.Get("Content-Type") != "text/plain" {
-		w.Header().Add("Content-Type", "text/plain")
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
+	// if r.Header.Get("Content-Type") != "text/plain" {
+	// w.Header().Add("Content-Type", "text/plain")
+	// w.WriteHeader(http.StatusBadRequest)
+	// return
+	// }
 
 	// myHash, err := io.ReadAll(r.Body)
 	// r.URL.w

@@ -32,7 +32,7 @@ func Save(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusCreated)
-	fmt.Fprintf(w, "your string is: %s\n", hash)
+	fmt.Fprintf(w, "%s://%s/%s", r.Proto, r.Host, hash)
 }
 
 func Get(w http.ResponseWriter, r *http.Request) {
@@ -49,8 +49,8 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	val, err := service.RetrieveURL(string(r.PathValue("id")))
 
 	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
 		fmt.Fprintf(w, "%s", err.Error())
-		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 	w.Header().Add("Location", val)

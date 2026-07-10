@@ -8,25 +8,19 @@ import (
 )
 
 type Service struct {
-	Storage *storage.InMEM
+	Repository *storage.InMEM
 }
-
-// func NewInMem() *Service {
-// 	return &Service{
-// 		Storage: storage.NewMem(),
-// 	}
-// }
 
 var svc *Service
 
 func SetStorage(s *storage.InMEM) {
-	svc = &Service{Storage: s}
+	svc = &Service{Repository: s}
 	// svc.Storage = s
 }
 
 func StoreURL(s string) (string, error) {
 	myHash := GenerateString(s)
-	svc.Storage.Put(
+	svc.Repository.Put(
 		s,
 		myHash,
 	)
@@ -34,7 +28,7 @@ func StoreURL(s string) (string, error) {
 }
 
 func RetrieveURL(s string) (string, error) {
-	return svc.Storage.Get(s)
+	return svc.Repository.Get(s)
 }
 
 func GenerateString(s string) string {

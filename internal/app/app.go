@@ -2,6 +2,9 @@
 package app
 
 import (
+	"log"
+
+	"github.com/stanssh/go-shortener/internal/config"
 	"github.com/stanssh/go-shortener/internal/handlers"
 	"github.com/stanssh/go-shortener/internal/service"
 	"github.com/stanssh/go-shortener/internal/storage"
@@ -31,13 +34,16 @@ import (
 // }
 
 func Run() error {
-	// cfg := config.New()
+	cfg := config.Load()
 
 	myStorage := storage.NewMem()
 
 	service.SetStorage(myStorage)
+	handlers.SetBaseURL(cfg)
+
+	log.Print("Starting app..")
 
 	router := handlers.NewRouter()
-	return router.Run()
+	return router.Run(cfg)
 
 }

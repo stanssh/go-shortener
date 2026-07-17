@@ -8,10 +8,6 @@ import (
 
 func main() {
 
-	log.Print("Starting app..")
-
-	// app := app.New()
-
 	log.Fatal(app.Run())
 
 }

@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 
+	"github.com/stanssh/go-shortener/internal/config"
 	"github.com/stanssh/go-shortener/internal/service"
 )
 
@@ -22,6 +23,12 @@ func getScheme(r *http.Request) string {
 		return h
 	}
 	return "http"
+}
+
+var BaseURL string = ""
+
+func SetBaseURL(c *config.Config) {
+	BaseURL = c.BaseURL
 }
 
 func Save(w http.ResponseWriter, r *http.Request) {
@@ -42,7 +49,14 @@ func Save(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusCreated)
-	fmt.Fprintf(w, "%s://%s/%s", getScheme(r), r.Host, hash)
+
+	prefix := fmt.Sprintf("%s://%s", getScheme(r), r.Host)
+
+	if BaseURL != "" {
+		prefix = BaseURL
+	}
+
+	fmt.Fprintf(w, "%s/%s", prefix, hash)
 }
 
 func Get(w http.ResponseWriter, r *http.Request) {

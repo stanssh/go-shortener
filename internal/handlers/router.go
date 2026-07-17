@@ -5,6 +5,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/stanssh/go-shortener/internal/config"
 )
 
 type Router struct {
@@ -20,8 +21,8 @@ func NewRouter() *Router {
 	}
 }
 
-func (r *Router) Run() error {
+func (r *Router) Run(c *config.Config) error {
 	r.Mux.HandleFunc("POST /", Save)
 	r.Mux.HandleFunc("GET /{id}", Get)
-	return http.ListenAndServe(":8080", r.Mux)
+	return http.ListenAndServe(c.Address, r.Mux)
 }

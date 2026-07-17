@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 
 	"github.com/stanssh/go-shortener/internal/config"
 	"github.com/stanssh/go-shortener/internal/service"
@@ -28,7 +29,7 @@ func getScheme(r *http.Request) string {
 var BaseURL string = ""
 
 func SetBaseURL(c *config.Config) {
-	BaseURL = c.BaseURL
+	BaseURL = strings.ReplaceAll(BaseURL, "http://", "")
 }
 
 func Save(w http.ResponseWriter, r *http.Request) {

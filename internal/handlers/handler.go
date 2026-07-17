@@ -51,7 +51,7 @@ func Save(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusCreated)
 
-	fmt.Fprintf(w, "%s/%s", getScheme(r)+BaseURL, hash)
+	fmt.Fprintf(w, "%s://%s/%s", getScheme(r), BaseURL, hash)
 }
 
 func Get(w http.ResponseWriter, r *http.Request) {

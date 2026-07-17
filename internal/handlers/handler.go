@@ -56,7 +56,7 @@ func Save(w http.ResponseWriter, r *http.Request) {
 		prefix = BaseURL
 	}
 
-	fmt.Fprintf(w, "%s/%s", prefix, hash)
+	fmt.Fprintf(w, "http://%s/%s", prefix, hash)
 }
 
 func Get(w http.ResponseWriter, r *http.Request) {

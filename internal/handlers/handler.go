@@ -50,13 +50,7 @@ func Save(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusCreated)
 
-	prefix := fmt.Sprintf("%s://%s", getScheme(r), r.Host)
-
-	if BaseURL != "" {
-		prefix = BaseURL
-	}
-
-	fmt.Fprintf(w, "%s/%s", prefix, hash)
+	fmt.Fprintf(w, "%s/%s", BaseURL, hash)
 }
 
 func Get(w http.ResponseWriter, r *http.Request) {

@@ -8,6 +8,8 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 	"github.com/stanssh/go-shortener/internal/service"
 	"github.com/stanssh/go-shortener/internal/storage"
 	"github.com/stretchr/testify/assert"
@@ -96,7 +98,10 @@ func Test_Get(t *testing.T) {
 	myStorage := storage.NewMem()
 	service.SetStorage(myStorage)
 
-	mux := http.NewServeMux()
+	mux := chi.NewRouter()
+	mux.Use(middleware.Logger)
+
+	// mux := http.NewServeMux()
 	mux.HandleFunc("GET /{id}", Get) // Регистрируем роут с шаблоном
 	mux.HandleFunc("POST /", Save)   // Регистрируем роут с шаблоном
 

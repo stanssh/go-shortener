@@ -26,10 +26,10 @@ func getScheme(r *http.Request) string {
 	return "http"
 }
 
-var BaseURL string = ""
+var BaseURL string
 
 func SetBaseURL(c *config.Config) {
-	BaseURL = strings.ReplaceAll(BaseURL, "http://", "")
+	BaseURL = strings.ReplaceAll(c.BaseURL, "http://", "")
 }
 
 func Save(w http.ResponseWriter, r *http.Request) {
